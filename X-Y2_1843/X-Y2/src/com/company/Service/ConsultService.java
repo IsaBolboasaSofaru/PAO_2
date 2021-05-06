@@ -4,6 +4,7 @@ import com.company.Repo.CSVRepo;
 import com.company.Repo.IRepo;
 import com.company.Repo.InMemoryRepo;
 import com.company.models.Consult;
+import com.company.models.Doctor;
 import com.company.models.Patient;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ConsultService implements IService<Consult>{
 
     public ConsultService(IRepo<Consult> consultIRepo) { this.consultIRepo = consultIRepo;}
     public ConsultService() {
-        this.consultIRepo = new CSVRepo<>("consults.csv", new Consult());
+        this.consultIRepo = new CSVRepo<>("consults.csv", new Consult(-1));
     }
 
     @Override
@@ -39,8 +40,8 @@ public class ConsultService implements IService<Consult>{
     }
 
     @Override
-    public void remove(int index) {
-        consultIRepo.remove(index);
+    public void remove(int id) {
+        consultIRepo.remove(new Consult((long) id));
     }
 
     @Override

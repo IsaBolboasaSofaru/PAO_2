@@ -3,12 +3,15 @@ package com.company.Repo;
 import com.company.models.BaseEntity;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CSVRepo<T extends BaseEntity<Long>> implements IRepo<T> {
     private final String filepath;
     public static final String delimiter = ",";
     private final T elem;
+
 
     public CSVRepo(String filepath, T elem) {
         this.filepath = filepath;
@@ -44,6 +47,14 @@ public class CSVRepo<T extends BaseEntity<Long>> implements IRepo<T> {
             }
             csvWriter.flush();
             csvWriter.close();
+            FileWriter logWriter = new FileWriter("log.txt", true);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            logWriter.append("\nFile ")
+                    .append(getFilepath())
+                    .append(" was updated at ")
+                    .append(dtf.format(LocalDateTime.now()));
+            logWriter.flush();
+            logWriter.close();
         }
         catch (IOException e) {
             e.printStackTrace();

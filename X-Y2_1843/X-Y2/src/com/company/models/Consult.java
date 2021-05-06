@@ -16,7 +16,9 @@ public class Consult extends BaseEntity<Long> {
         this.notes = notes;
         this.setId(id);
     }
-    public Consult() {
+
+
+    public Consult(long id) {
         this.doctorID = (long) -1;
         this.roomID = (long) -1;
         this.patientID = (long) -1;

@@ -26,6 +26,7 @@ public class UI {
         this.departmentService = departmentService;
         this.patientService = patientService;
     }
+
     public UI() {
         this.consultService = new ConsultService();
         this.doctorService = new DoctorService();
@@ -73,25 +74,25 @@ public class UI {
             System.out.println("Choose a valid option: ");
             try {
                 command = Integer.valueOf(keyboard.next());
-            }
-            catch (RuntimeException e) {
+            } catch (RuntimeException e) {
                 System.out.println("Program stopped! error:" + e.getMessage());
             }
         }
         while (!arr.contains(command));
         return command;
     }
+
     private Integer readInteger(String parameter) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println(parameter + ": ");
             return Integer.valueOf(bufferedReader.readLine());
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return null;
     }
+
     public void runConsole() {
         //todo change here the switch
         Scanner keyboard = new Scanner(System.in);
@@ -100,47 +101,119 @@ public class UI {
             printMenu();
             var command = getValidCommand(keyboard);
             switch (command) {
-                case 1 : addDoctor();
-                case 2 : updateDoctor();
-                case 3 : deleteDoctor();
-                case 4 : listDoctor();
-                case 5 : addRoom();
-                case 6 : updateRoom();
-                case 7 : deleteRoom();
-                case 8 : listRoom();
-                case 9 : addDepartment();
-                case 10 : updateDepartment();
-                case 11 : deleteDepartment();
-                case 12 : listDepartment();
-                case 13 : addPatient();
-                case 14 : updatePatient();
-                case 15 : deletePatient();
-                case 16 : listPatient();
-                case 17 : addConsult();
-                case 18 : updateConsult();
-                case 19 : deleteConsult();
-                case 20 : listConsult();
-                case 21 : filterConsultDoctor();
-                case 22 : filterConsultRoom();
-                case 23 : filterConsultPatient();
+                case 1:
+                    addDoctor();
+                    break;
+                case 2:
+                    updateDoctor();
+                    break;
+                case 3:
+                    deleteDoctor();
+                    break;
+
+                case 4:
+                    listDoctor();
+                    break;
+
+                case 5:
+                    addRoom();
+                    break;
+
+                case 6:
+                    updateRoom();
+                    break;
+
+                case 7:
+                    deleteRoom();
+                    break;
+
+                case 8:
+                    listRoom();
+                    break;
+
+                case 9:
+                    addDepartment();
+                    break;
+
+                case 10:
+                    updateDepartment();
+                    break;
+
+                case 11:
+                    deleteDepartment();
+                    break;
+
+                case 12:
+                    listDepartment();
+                    break;
+
+                case 13:
+                    addPatient();
+                    break;
+
+                case 14:
+                    updatePatient();
+                    break;
+
+                case 15:
+                    deletePatient();
+                    break;
+
+                case 16:
+                    listPatient();
+                    break;
+
+                case 17:
+                    addConsult();
+                    break;
+
+                case 18:
+                    updateConsult();
+                    break;
+
+                case 19:
+                    deleteConsult();
+                    break;
+
+                case 20:
+                    listConsult();
+                    break;
+
+                case 21:
+                    filterConsultDoctor();
+                    break;
+
+                case 22:
+                    filterConsultRoom();
+                    break;
+
+                case 23:
+                    filterConsultPatient();
+                    break;
+
 
                 default : running = 0;
+                    break;
             }
         }
     }
-    void filterConsultDoctor(){
+
+    void filterConsultDoctor() {
         Integer id = readInteger("DoctorID: ");
         System.out.println(consultService.filterbyDoctor(Long.valueOf(id)));
     }
-    void filterConsultPatient(){
+
+    void filterConsultPatient() {
         Integer id = readInteger("PatientID: ");
         System.out.println(consultService.filterbyPatient(Long.valueOf(id)));
     }
-    void filterConsultRoom(){
+
+    void filterConsultRoom() {
         Integer id = readInteger("RoomID: ");
         System.out.println(consultService.filterbyRoom(Long.valueOf(id)));
     }
-    private Consult readConsult(){
+
+    private Consult readConsult() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println("id: ");
@@ -155,14 +228,14 @@ public class UI {
             String notes = bufferedReader.readLine();
 
             return new Consult(id, doctorID, roomID, patientID, notes);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
         return null;
 
     }
-    void addConsult(){
+
+    void addConsult() {
         var room = readConsult();
         if (room != null) {
             var bool = consultService.add(room);
@@ -171,6 +244,7 @@ public class UI {
             else System.out.println("Consult couldn't be added");
         }
     }
+
     void updateConsult() {
         var room = readConsult();
         if (room != null) {
@@ -179,6 +253,7 @@ public class UI {
             else System.out.println("Consult couldn't be updated");
         }
     }
+
     void deleteConsult() {
         Integer id = readInteger("id");
         if (id != null) {
@@ -187,6 +262,7 @@ public class UI {
         }
 
     }
+
     void listConsult() {
 //        System.out.println(Arrays.toString(this.consultService.getAll().toArray()));
         var obj = this.consultService.getAll()
@@ -194,7 +270,8 @@ public class UI {
                 .reduce("\n", String::concat);
         System.out.println(obj);
     }
-    private Patient readPatient(){
+
+    private Patient readPatient() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println("id: ");
@@ -205,14 +282,14 @@ public class UI {
             Integer age = Integer.valueOf(bufferedReader.readLine());
 
             return new Patient(id, departmentID, age);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
         return null;
 
     }
-    void addPatient(){
+
+    void addPatient() {
         var room = readPatient();
         if (room != null) {
             var bool = patientService.add(room);
@@ -221,6 +298,7 @@ public class UI {
             else System.out.println("Patient couldn't be added");
         }
     }
+
     void updatePatient() {
         var room = readPatient();
         if (room != null) {
@@ -229,6 +307,7 @@ public class UI {
             else System.out.println("Patient couldn't be updated");
         }
     }
+
     void deletePatient() {
         Integer id = readInteger("id");
         if (id != null) {
@@ -237,10 +316,12 @@ public class UI {
         }
 
     }
+
     void listPatient() {
         System.out.println(this.patientService.getAll());
     }
-    private Department readDepartment(){
+
+    private Department readDepartment() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println("id: ");
@@ -249,14 +330,14 @@ public class UI {
             String departmentID = bufferedReader.readLine();
 
             return new Department(id, departmentID);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
         return null;
 
     }
-    void addDepartment(){
+
+    void addDepartment() {
         var room = readDepartment();
         if (room != null) {
             var bool = departmentService.add(room);
@@ -265,6 +346,7 @@ public class UI {
             else System.out.println("Department couldn't be added");
         }
     }
+
     void updateDepartment() {
         var room = readDepartment();
         if (room != null) {
@@ -273,6 +355,7 @@ public class UI {
             else System.out.println("Department couldn't be updated");
         }
     }
+
     void deleteDepartment() {
         Integer id = readInteger("id");
         if (id != null) {
@@ -281,10 +364,12 @@ public class UI {
         }
 
     }
+
     void listDepartment() {
         System.out.println(this.departmentService.getAll());
     }
-    private Room readRoom(){
+
+    private Room readRoom() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             System.out.println("id: ");
@@ -293,14 +378,14 @@ public class UI {
             Long departmentID = Long.valueOf(bufferedReader.readLine());
 
             return new Room(id, departmentID);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
         return null;
 
     }
-    void addRoom(){
+
+    void addRoom() {
         Room room = readRoom();
         if (room != null) {
             var bool = roomService.add(room);
@@ -309,6 +394,7 @@ public class UI {
             else System.out.println("Room couldn't be added");
         }
     }
+
     void updateRoom() {
         Room room = readRoom();
         if (room != null) {
@@ -317,6 +403,7 @@ public class UI {
             else System.out.println("Room couldn't be updated");
         }
     }
+
     void deleteRoom() {
         Integer id = readInteger("id");
         if (id != null) {
@@ -325,9 +412,11 @@ public class UI {
         }
 
     }
+
     void listRoom() {
         System.out.println(this.roomService.getAll());
     }
+
     private Doctor readDoctor() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
@@ -343,12 +432,12 @@ public class UI {
             Integer yearsOfExperience = Integer.valueOf(bufferedReader.readLine());
 
             return new Doctor(id, typeOfJob, name, yearsOfExperience, address);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
         return null;
     }
+
     void addDoctor() {
         Doctor doctor = readDoctor();
         if (doctor != null) {
@@ -358,6 +447,7 @@ public class UI {
             else System.out.println("Doctor couldn't be added");
         }
     }
+
     void updateDoctor() {
         Doctor doctor = readDoctor();
         if (doctor != null) {
@@ -366,6 +456,7 @@ public class UI {
             else System.out.println("Doctor couldn't be updated");
         }
     }
+
     void deleteDoctor() {
         Integer id = readInteger("id");
         if (id != null) {
@@ -374,6 +465,7 @@ public class UI {
         }
 
     }
+
     void listDoctor() {
         System.out.println(this.doctorService.getAll());
     }

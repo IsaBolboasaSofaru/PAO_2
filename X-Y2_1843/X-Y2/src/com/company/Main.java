@@ -1,17 +1,5 @@
 package com.company;
 
-/*
-Todo: a service for each type of object and implement special functionalities for each of them
-
-TODO: create SortedRepo
-
-TODO: Extra functionalities ideas
-    - filter patients by age
-    - filter consults by doctor, patient and room
-
-TODO: make the UI prettier; change the toString functions so that the console looks better
-*/
-
 import com.company.UI.UI;
 
 
